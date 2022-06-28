@@ -1,0 +1,25 @@
+<!--Release 34-->
+<!--Version Dated as of 15/Oct/2015 18:54:47-->
+<!--Air Pricing For Galileo(1G) with Minimum data Request-->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <air:AirPriceReq xmlns:air="http://www.travelport.com/schema/air_v34_0" AuthorizedBy="user"
+                         TargetBranch="TRGT_BRCH" TraceId="trace">
+            <com:BillingPointOfSaleInfo xmlns:com="http://www.travelport.com/schema/common_v34_0"
+                                        OriginApplication="UAPI"/>
+            <air:AirItinerary>
+                <air:AirSegment ArrivalTime="2015-09-24T08:05:00.000+10:00" AvailabilityDisplayType="General"
+                                AvailabilitySource="S" Carrier="QF" ChangeOfPlane="false"
+                                DepartureTime="2015-09-24T06:30:00.000+10:00" Destination="MEL" ETicketability="Yes"
+                                Equipment="332" FlightNumber="405" FlightTime="95" Group="0"
+                                Key="lF+w2toQRnezd5ntRb5x3w==" LinkAvailability="true" OptionalServicesIndicator="false"
+                                Origin="SYD" ParticipantLevel="Secure Sell" PolledAvailabilityOption="Polled avail used"
+                                ProviderCode="1G" TravelTime="95"/>
+            </air:AirItinerary>
+            <com:SearchPassenger xmlns:com="http://www.travelport.com/schema/common_v34_0"
+                                 BookingTravelerRef="gr8AVWGCR064r57Jt0+8bA==" Code="ADT"/>
+            <air:AirPricingCommand CabinClass="Economy"/>
+        </air:AirPriceReq>
+    </soapenv:Body>
+</soapenv:Envelope>

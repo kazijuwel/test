@@ -1,0 +1,117 @@
+@extends('frontend.mobile.layout.app')
+@section('content')
+<main class="app-content">
+
+    <!--Lazy Loader-->
+    <!--Lazy Loader-->
+    <section class="pt-4 mb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-5 col-xl-6 col-md-8 mx-auto">
+                    <form id="shop" class="" action="{{ route('shops.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        @csrf
+                        @if (!Auth::check())
+                            <div class="bg-white rounded shadow-sm mb-3">
+                                <div class="fs-15 fw-600 p-3 border-bottom">
+                                    {{ translate('Personal Info')}}
+                                </div>
+                                <div class="">
+                                    <div class="form-group">
+                                        <label>{{ translate('Your Name')}} <span class="text-primary">*</span></label>
+                                        <input autocomplete="off" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{  translate('Name') }}" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ translate('Your Email')}} <span class="text-primary">*</span></label>
+                                        <input autocomplete="off" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ translate('Phone')}} <span class="text-primary">*</span></label>
+                                        <input autocomplete="off" type="tel" pattern="\+?(88)?0?1[3456789][0-9]{8}\b" title="Please Input a valid Phone Number" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{  translate('phone') }}" name="phone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ translate('Your Profession')}}</label>
+                                        <input autocomplete="off" type="text" class="form-control{{ $errors->has('profession') ? ' is-invalid' : '' }}" value="{{ old('profession') }}" placeholder="{{  translate('Profession') }}" name="profession">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ translate('Your Date of Birth')}}</label>
+                                        <input autocomplete="off" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" value="{{ old('birth_date') }}" placeholder="{{  translate('Date of Birth') }}" name="birth_date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ translate('Your Password')}} <span class="text-primary">*</span></label>
+                                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Password') }}" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ translate('Repeat Password')}} <span class="text-primary">*</span></label>
+                                        <input type="password" class="form-control" placeholder="{{  translate('Confirm Password') }}" name="password_confirmation" required>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="bg-white rounded shadow-sm mb-4">
+                            <div class="fs-15 fw-600  border-bottom">
+                                {{ translate('Basic Info')}}
+                            </div>
+                            <div class="">
+                                <div class="form-group">
+                                    <label>{{ translate('Shop Name')}} <span class="text-primary">*</span></label>
+                                    <input autocomplete="off" type="text" class="form-control" placeholder="{{ translate('Shop Name')}}" name="shop_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ translate('Logo')}}</label>
+                                    <div class="custom-file">
+                                        <label class="custom-file-label">
+                                            <input type="file" class="custom-file-input" name="logo" accept="image/*">
+                                            <span class="custom-file-name">{{ translate('Choose image') }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ translate('Address')}} <span class="text-primary">*</span></label>
+                                    <input autocomplete="off" type="text" class="form-control mb-3" placeholder="{{ translate('Address')}}" name="address" required>
+                                </div>
+                            </div>
+                        </div>
+    
+                        @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
+                            <div class="form-group mt-2 mx-auto row">
+                                <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
+                            </div>
+                        @endif
+    
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary fw-600">{{ translate('Register Your Shop')}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</main>
+
+@endsection
+@section('js')
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script type="text/javascript">
+    // making the CAPTCHA  a required field for form submission
+    $(document).ready(function(){
+        // alert('helloman');
+        $("#shop").on("submit", function(evt)
+        {
+            var response = grecaptcha.getResponse();
+            if(response.length == 0)
+            {
+            //reCaptcha not verified
+                alert("please verify you are humann!");
+                evt.preventDefault();
+                return false;
+            }
+            //captcha verified
+            //do the rest of your validations here
+            $("#reg-form").submit();
+        });
+    });
+</script>
+
+@endsection

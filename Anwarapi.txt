@@ -1,0 +1,56 @@
+1. Get Profile
+{{baseurl}}/user/info/9
+2. Update Profile
+{{baseurl}}/user/info/update
+{
+	"user_id": 9,
+	"name": "Mamun"
+
+}
+3. get user info
+{{baseurl}}/user-list
+4. Get shipping Address
+{{baseurl}}/user/shipping/address/9
+5. User Shipping Create
+{{baseurl}}/user/shipping/create
+{
+	"user_id": 9,
+	"address": "Dhaka",
+    "country":"Bangladesh",
+    "city":"city",
+    "postal_code":"postal_code",
+    "phone":"phone"
+
+}
+6. Delete Shipping Address
+{{baseurl}}/user/shipping/delete/5
+7. shipping Set Status
+{{baseurl}}/user/shipping/set_default/10
+
+8. Get all sliders
+{{baseurl}}/sliders
+
+9. Flash-deal
+{{baseurl}}/products/flash-deal
+
+10. Stock Out Offer
+{{baseurl}}/products/stock-out-offer
+
+11. Today Deal
+{{baseurl}}/products/todays-deal
+
+12. Pupular By choice
+{{baseurl}}/categories/featured
+
+13. Product Search
+{{baseurl}}/products/search
+{
+	"key": "ANBIUX 2MP PTZ WIFI IP Camera Outdoor 1080P 4X Digital",
+	"scope": "ANBIUX 2MP PTZ WIFI IP Camera Outdoor 1080P 4X Digital"
+}
+
+14. Order traking get method
+{{baseurl}}/order/track
+{
+	"order_code": "20210316-04480776"
+}

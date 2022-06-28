@@ -1,0 +1,1 @@
+{"paymentID":"C7V0X9P1652274881011","createTime":"2022-05-11T13:14:41:148 GMT+0000","orgLogo":"https://s3-ap-southeast-1.amazonaws.com/merchantlogo.sandbox.bka.sh/merchant-default-logo.png","orgName":"TestCheckoutMerchant2","transactionStatus":"Initiated","amount":"78","currency":"BDT","intent":"sale","merchantInvoiceNumber":"Pro995"}

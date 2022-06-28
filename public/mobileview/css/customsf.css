@@ -1,0 +1,88 @@
+
+body {
+    font-family: Verdana, sans-serif;
+    background-color: var(--primary);
+}
+
+.mySlides {
+    display: none;
+}
+
+.bgprimary {
+    background-color: #fd6a02;
+}
+
+img {
+    vertical-align: middle;
+}
+
+
+
+.padding-around,
+.padding-xy {
+    padding: 0px !important;
+}
+
+::placeholder {
+    color: gray !important;
+    opacity: 1;
+    /* Firefox */
+}
+
+.text-truncate {
+    color: black !important;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.product-sm .img-wrap {
+    height: 140px;
+    background-color: #E5EBFF;
+    border-radius: 0rem !important;
+}
+
+.topright {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    font-size: 18px;
+}
+
+.topright .btn-warning {
+    background-color: #fd6a02;
+}
+
+
+
+.checked {
+    color: #fd6a02;
+}
+
+/* Number text (1/3 etc) */
+
+
+/* The dots/bullets/indicators */
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.divider {
+    border-top: 10px solid #fceea7;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.mySlides {
+    display: none;
+}
+.app-content {
+    min-height: 86vh;
+    padding-bottom: 70px;
+    background: #FCEEA7;
+}

@@ -1,0 +1,242 @@
+@extends('backend.layouts.app')
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="text-center p-3">
+                    <h5 class="">belaobela.com</h5>
+                    <h4> Ledger</h4>
+                    <p>From:   {{date('d/m/Y',strtotime($start)) }}   --- To: {{date('d/m/Y',strtotime($end)) }}</p>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Details</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5">
+                                        {{  $chartofAccountName }}
+                                    </td>
+                                </tr>
+                                @php
+                                $Balance = $account->operningBalance($chartofAccountId,$start);
+                                if( $account->operningBalance($chartofAccountId,$start < 0)){
+                                    $Balance =$Balance - ($account->operningBalance($chartofAccountId,$start));
+                                }else{
+                                    $Balance =$Balance + ($account->operningBalance($chartofAccountId,$start));
+                                }
+                                @endphp
+                                @foreach($chartofAccounts as $vItem)
+                                @php
+                                if( $account->operningBalance($chartofAccountId,$start < 0))
+                                {
+                                    $Balance +=-$vItem->debit + $vItem->credit;
+                                }
+                                else{
+                                    $Balance +=+$vItem->debit - $vItem->credit;
+                                }
+                                @endphp
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{date('d/m/Y',strtotime($vItem->voucher->created_at)) }}-{{ $vItem->voucher->name}}</td>
+                                    <td>                                    <a href="{{ route('voucheritems',[$vItem->voucher->id,'debit','ledger_trans',$start,$end]) }}">{{ ($vItem->debit !=null)? round($vItem->debit): " " }}</a></td>
+                                    <td>
+                                        <a href="{{ route('voucheritems',[$vItem->voucher->id,'credit','ledger_trans',$start,$end]) }}">{{ ($vItem->credit !=null)? round($vItem->credit): " " }}</a>
+                                    </td>
+                                    <td>
+                                        @if($Balance < 0)
+                                        {{ abs(round($Balance)) }}
+
+                                        @else
+                                        {{ abs(round($Balance)) }}
+                                        @endif
+
+                                        @if($Balance < 0)
+                                            cr
+
+                                        @else
+                                        dr
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 {{-- <div class="text-center p-3">
+                    <h5 class="">belaobela.com</h5>
+                    <h4> Ledger</h4>
+                    <p>From:   {{date('d/m/Y',strtotime($start)) }}   --- To: {{date('d/m/Y',strtotime($end)) }}</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8"></div>
+                        <div class="col-1">Debit</div>
+                        <div class="col-1">Credit</div>
+                        <div class="col-2">Balance</div>
+                    </div>
+                    <div>{{ $chartofAccountName }}</div>
+                    <div class="col-8"><span class="pl-4">Opening Balance
+                        @if($account->operningBalance($chartofAccountId,$start) < 0)
+                            {{ $account->operningBalance($chartofAccountId,$start) }}cr
+                        @else
+                        {{ $account->operningBalance($chartofAccountId,$start) }}dr
+                        @endif
+
+
+                    </span></div>
+                    @php
+                    $Balance = $account->operningBalance($chartofAccountId,$start);
+                    if( $account->operningBalance($chartofAccountId,$start < 0)){
+                        $Balance =$Balance - ($account->operningBalance($chartofAccountId,$start));
+                    }else{
+                        $Balance =$Balance + ($account->operningBalance($chartofAccountId,$start));
+                    }
+                    @endphp
+
+
+                    @foreach($chartofAccounts as $vItem)
+                    @php
+                    if( $account->operningBalance($chartofAccountId,$start < 0))
+                    {
+                        $Balance +=-$vItem->debit + $vItem->credit;
+                    }
+                    else{
+                        $Balance +=+$vItem->debit - $vItem->credit;
+                    }
+
+                    @endphp
+                            <div class="row">
+                                <div class="col-8"><span class="pl-4">{{date('d/m/Y',strtotime($vItem->voucher->created_at)) }}-{{ $vItem->voucher->name}}</span></div>
+                                <div class="col-1">
+                                    <a href="{{ route('voucheritems',[$vItem->voucher->id,'debit','ledger_trans',$start,$end]) }}">{{ ($vItem->debit !=null)? $vItem->debit: " " }}</a>
+                                </div>
+                                <div class="col-1">
+                                    <a href="{{ route('voucheritems',[$vItem->voucher->id,'credit','ledger_trans',$start,$end]) }}">{{ ($vItem->credit !=null)? $vItem->credit: " " }}</a>
+                                </div>
+                                <div class="col-2">
+                                    @if($Balance < 0)
+                                    {{ abs($Balance) }}
+
+                                    @else
+                                    {{ abs($Balance) }}
+                                    @endif
+
+                                    @if($Balance < 0)
+                                        cr
+
+                                    @else
+                                    dr
+                                    @endif
+
+                                </div>
+                               </div>
+                    @endforeach
+                    <div class="col-8"><span class="pl-4">Colsing Balance
+                        @if($Balance < 0)
+                        {{ $Balance }}
+                        @else
+                        {{ $Balance }}
+                        @endif
+                        @if($Balance < 0)
+                        cr
+                        @else
+                        dr
+                        @endif
+                    </span></div>
+
+
+
+
+
+
+
+
+
+
+
+                    {{-- @foreach ($chartofIncomeAccounts as $type)
+                    <span class="mt-1"><strong>{{ $type->name}}<br></strong></span>
+                    @if($type->openingBalance($type->id,$start,'credit') > 0)
+                    <div class="row">
+                        <div class="col-8">Opening Balance</div>
+                        <div class="col-1">0</div>
+                        <div class="col-1">{{ $type->openingBalance($type->id,$start,'credit') }}</div>
+                        <div class="col-2">
+                         {{ abs($type->openingBalance($type->id,$start,'credit')) }}
+                        </div>
+                    </div>
+                    @endif
+                     @php
+                     $openBalance=0;
+                     $openBalance +=$type->openingBalance($type->id,$start,'credit');
+                     @endphp
+                     @foreach($type->Voucheritems as $vItem)
+                         @php
+                         $openBalance +=-$vItem->debit + $vItem->credit;
+                         @endphp
+                                 <div class="row">
+                                     <div class="col-8"><span class="pl-4">{{date('d/m/Y',strtotime($vItem->voucher->created_at)) }}-{{ $vItem->voucher->name}}</span></div>
+                                     <div class="col-1">
+                                         <a href="{{ route('voucheritems',[$vItem->voucher->id,'debit','ledger_trans',$start,$end]) }}">{{ ($vItem->debit !=null)? $vItem->debit: " " }}</a>
+                                     </div>
+                                     <div class="col-1">
+                                         <a href="{{ route('voucheritems',[$vItem->voucher->id,'credit','ledger_trans',$start,$end]) }}">{{ ($vItem->credit !=null)? $vItem->credit: " " }}</a>
+                                     </div>
+                                     <div class="col-2"> {{ abs($openBalance) }}cr</div>
+                                 </div>
+                         @endforeach
+
+                   @endforeach
+                      @php
+                      $openBalance=0;
+                      $openBalance +=$type->openingBalance($type->id,$start,'credit');
+                     @endphp
+                 @endforeach --}}
+                   {{-- </table>
+
+                    <hr>
+                    <hr> --}}
+                {{-- </div> --}}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@section('script')
+
+@endsection

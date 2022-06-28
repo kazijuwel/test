@@ -1,0 +1,25 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns1="http://www.travelport.com/schema/common_v49_0"
+                   xmlns:ns2="http://www.travelport.com/schema/air_v49_0">
+    <SOAP-ENV:Body>
+        <ns2:AvailabilitySearchReq TraceId="trace" AuthorizedBy="user" TargetBranch="P4003983">
+            <ns1:BillingPointOfSaleInfo OriginApplication="UAPI"/>
+            <ns2:SearchAirLeg>
+                <ns2:SearchOrigin>
+                    <ns1:Airport Code="DAC"/>
+                </ns2:SearchOrigin>
+                <ns2:SearchDestination>
+                    <ns1:Airport Code="JED"/>
+                </ns2:SearchDestination>
+                <ns2:SearchDepTime PreferredTime="2022-01-13"/>
+            </ns2:SearchAirLeg>
+            <ns2:AirSearchModifiers>
+                <ns2:PreferredProviders>
+                    <ns1:Provider Code="1G"/>
+                </ns2:PreferredProviders>
+            </ns2:AirSearchModifiers>
+            <ns1:SearchPassenger Code="CHD" BookingTravelerRef="0" Key="0"/>
+            <ns1:PointOfSale ProviderCode="1G" PseudoCityCode="5J39"/>
+        </ns2:AvailabilitySearchReq>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
